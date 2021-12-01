@@ -20,7 +20,7 @@ for (i in seq(1, 3, 1)) {
   for (j in seq(1, 100, 1)) {
     #files <- list.files(paste0("./", i, "bps/", j, "/mafft/"))
     
-    files <- Sys.glob(paste0("./", i, "bps/", j, "/tn93/", 'seq_*.mafft.tn93.csv'))
+    files <- Sys.glob(paste0("./", i, "bps/", j, "/tn93/", 'rstep_*.tn93.csv'))
     slices <- as.integer(sapply(files, function(x) gsub(".*sw([0-9]+).*", "\\1", x)))
     files <- files[order(slices)]
     
@@ -29,7 +29,7 @@ for (i in seq(1, 3, 1)) {
     # please make sure that they are comma separated files (or modify this script to apply whichever separator)
     list.m <- lapply(files, function(f) {
       x <- read.table(f, sep=',', header=T, na.strings=c("NA", "NaN"), row.names=1)
-      quantile(as.matrix(x), probs = 0.40, na.rm = TRUE)
+      quantile(as.matrix(x), probs = 0.30, na.rm = TRUE)
     })
     
     list.g <- vector("list", length = length(list.m))
